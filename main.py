@@ -10,19 +10,19 @@ form = """
 <html>
 	<head>
 		<style>
-			form {
+			form {{
 				background-color: #eee;
 				padding: 20px;
 				margin: 0 auto;
 				width: 540px;
 				font: 16px sans-serif;
 				border-radius: 10px;
-			}
-			textarea {
+			}}
+			textarea {{
 				margin: 10px 0;
 				width: 540px;
 				height: 120px;
-			}
+			}}
 		</style>
 	</head>
 	<body>
@@ -35,7 +35,7 @@ form = """
 			</label>
 
 			<!-- text to encrypt input -->
-			<textarea name="text"></textarea>
+			<textarea name="text">{0}</textarea>
 
 			<input type="submit" value="submit" />
 
@@ -46,7 +46,7 @@ form = """
 
 @app.route('/')
 def index():
-	return form
+	return form.format('')
 
 @app.route('/', methods=['POST'])
 def encrypt():
@@ -55,8 +55,10 @@ def encrypt():
 	text = request.form['text']
 
 	rotated_text = rotate_string(text, rot)
+	# Return the form with Caesar rotated text
+	# in the text box.
 
-	return '<h1>' + str(rotated_text) + '</h1>'
+	return form.format(rotated_text)
 
 # Getting error that int is not iterable. Issue with converting form input for rot into something
 # that can be used in the rotated_text function.
@@ -79,7 +81,7 @@ string wrapped in <h1> tags, to be rendered in the browser. ---DONE---
 
 Before embarking on our final task, start up the application and test that everything
 you've done so far works. This is also a good time to commit your changes to your local
-Git repo.
+Git repo. ---DONE---
 
 
 
