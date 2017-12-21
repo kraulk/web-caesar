@@ -32,11 +32,11 @@ form = """
 			
 			<!-- rotation input -->
 			<label>Rotate by:
-				<input name="rot" type="text" />
+				<input name="rot" type="text" value="{rotate}"/>
 			</label>
 
 			<!-- text to encrypt input -->
-			<textarea name="text">{0}</textarea>
+			<textarea name="text">{text}</textarea>
 
 			<input type="submit" value="submit" />
 
@@ -47,7 +47,7 @@ form = """
 
 @app.route('/')
 def index():
-	return form.format('')
+	return form.format(rotate='', text='')
 
 @app.route('/', methods=['POST'])
 def encrypt():
@@ -57,9 +57,9 @@ def encrypt():
 
 	rotated_text = rotate_string(text, rot)
 	# Return the form with Caesar rotated text
-	# in the text box.
+	# in textarea. Keep rotation amount in input.
 
-	return form.format(rotated_text)
+	return form.format(rotate=rot, text=rotated_text)
 
 app.run()
 
